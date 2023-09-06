@@ -1,0 +1,348 @@
+
+version: 2
+
+sources:
+  - name: external_source
+    meta:
+      external_location: "../parquet_files/*{name}*.parquet"
+    tables:
+      - name: Paises
+      - name: Estabelecimentos
+      - name: Empresas
+      - name: Simples
+      - name: Socios
+      - name: Municipios
+      - name: Naturezas
+      - name: Qualificacoes
+      - name: Cnaes
+      - name: Motivos
+
+models:
+  - name: ods_paises
+    description: "Tabela de mapeamento com os nomes dos Países e seus respecitvos códigos"
+    columns:
+      - name: codigo
+        description: "Código do País. The primary key for this table"
+        tests:
+          - unique
+          - not_null
+      - name: descricao
+        description: "Descrição do País"
+        tests:
+          - unique
+          - not_null
+
+  - name: ods_estabelecimentos
+    description: "Tabela que contém as informações por Estabelecimento (CNPJ completo)"
+    columns:
+      - name: id_cnpj
+        description: "Número base de inscrição no CNPJ (8 primeiros dígitos do CNPJ)"
+        tests:
+          - unique
+          - not_null
+      - name: cnpj_ordem
+        description: "Número do estabelecimento de inscrição no cnpj (do nono até o décimo segundo dígito do cnpj)."
+      - name: cnpj_dv
+        description: "Dígito verificador do número de inscrição no cnpj (dois últimos dígitos do cnpj)."
+      - name: id_cnpj
+        description: "CNPJ completo do Estabelecimento, construído a partir da concatenação das colunas `id_cnpj`, `cnpj_ordem` e `cnpj_dv`"
+      - name: identificador_matriz_filial
+        description: "Código de Identificação Matriz / Filial"
+      - name: descricao_matriz_filial
+        description: "Descrição do tipo do estabelecimento Matriz ou Filial"
+      - name: nome_fantasia
+        description: "Nome Fantasia do Estabelecimento"
+      - name: situacao_cadastral
+        description: "Código da situação cadastral"
+      - name: descricao_situacao_cadastral
+        description: "Descrição da situação cadastral"
+      - name: data_situacao_cadastral
+        description: "Data do evento da situação cadastral"
+      - name: motivo_situacao_cadastral
+        description: "Código do Motivo da Situação Cadastral"
+      - name: nome_da_cidade_no_exterior
+        description: "Nome da cidade no exterior"
+      - name: pais
+        description: "Código do País"
+      - name: data_de_inicio_atividade
+        description: "Data de início de atividade"
+      - name: cnae_fiscal_principal
+        description: "Código da atividade econômica principal do estabelecimento"
+      - name: cnae_fiscal_secundaria
+        description: "código da(s) atividade(s) econômica(s) secundária(s) do estabelecimento"
+      - name: tipo_de_logradouro
+        description: "Descrição do tipo de Logradouro"
+      - name: logradouro
+        description: "Nome do Logradouro aonde está localizado o estabelecimento"
+      - name: numero
+        description: "Número onde se localiza o estabelecimento. quando não houver preenchimento do número haverá 'S/N'"
+      - name: complemento
+        description: "Complemento para o endereço de localização do estabelecimento"
+      - name: bairro
+        description: "Bairro onde se localiza o estabelecimento"
+      - name: cep
+        description: "Código de endereçamento postal referente ao logradouro no qual o estabelecimento esta localizado"
+      - name: uf
+        description: "Sigla da unidade da federação em que se encontra o estabelecimento"
+      - name: municipio
+        description: "Código do município de jurisdição onde se encontra o estabelecimento"
+      - name: ddd_1
+        description: "Contém o DDD 1"
+      - name: telefone_1
+        description: "Contém o Telefone 1"
+      - name: ddd_2
+        description: "Contém o DDD 2"
+      - name: telefone_2
+        description: "Contém o Telefone 2"
+      - name: ddd_do_fax
+        description: "Contém o DDD do FAX"
+      - name: fax
+        description: "Contém o Telefone do FAX"
+      - name: correio_eletronico
+        description: "Contém o email do contribuinte"
+      - name: situacao_especial
+        description: "Situação Especial da Empresa"
+      - name: data_da_situacao_especial
+        description: "Data em que a Empresa entrou em Situação Especial"
+
+  - name: ods_empresas
+    description: "Tabela que contém as informações das Empresas por CNPJ básico (8 primeiros dígitos)"
+    columns:
+      - name: cnpj_basico
+        description: "Número base de inscrição no CNPJ (8 primeiros dígitos do CNPJ)"
+        tests:
+          - unique
+          - not_null
+      - name: razao_social_nome_empresarial
+        description: "Nome empresarial da pessoa jurídica"
+      - name: natureza_juridica
+        description: "Código da Natureza Jurídica"
+      - name: qualificacao_do_responsavel
+        description: "Qualificação da Pessoa Física Responsável pela Empresa"
+      - name: capital_social_da_empresa
+        description: "Capital Social da Empresa"
+      - name: porte_da_empresa
+        description: "Código do Porte da Empresa"
+      - name: descricao_porte_da_empresa
+        description: "Descrição do Porte da Empresa"
+      - name: ente_federativo_responsavel
+        description: >
+          "O ente federativo responsável é preenchido para os casos de órgãos e entidades do grupo de natureza jurídica 1xxx. 
+          Para as demais naturezas, este atributo fica em branco."
+
+  - name: ods_simples
+    description: "Tabela que contém as informações do Simples por CNPJ básico (8 primeiros dígitos)"
+    columns:
+      - name: cnpj_basico
+        description: "Número base de inscrição no CNPJ (8 primeiros dígitos do CNPJ)"
+        tests:
+          - unique
+          - not_null
+      - name: opcao_pelo_simples
+        description: "Indicador da existência da opção pelo simples." 
+      - name: descricao_opcao_pelo_simples
+        description: "Descrição da opção pelo simples." 
+      - name: data_de_opcao_pelo_simples
+        description: "Data de Opção pelo Simples" 
+      - name: data_de_exclusao_do_simples
+        description: "Data de exclusão do simples" 
+      - name: opcao_pelo_mei
+        description: "Indicador da existência da opção pelo MEI" 
+      - name: descricao_opcao_pelo_mei
+        description: "Descrição da Opção pelo MEI" 
+      - name: data_de_opcao_pelo_mei
+        description: "Data da opção pelo MEI" 
+      - name: data_de_exclusao_do_mei
+        description: "Data de Exclusão do MEI" 
+
+  - name: ods_socios
+    description: "Tabela que contém as informações dos Sócios por CNPJ básico (8 primeiros dígitos)"
+    columns:
+      - name: cnpj_basico
+        description: "Número base de inscrição no CNPJ (8 primeiros dígitos do CNPJ)"
+        tests:
+          - not_null
+      - name: identificador_de_socio
+        description: "Código do Identificador do Sócio" 
+      - name: descricao_identificador_de_socio
+        description: "Descrição do Identificador do Sócio" 
+      - name: nome_do_socio
+        description: "Nome do sócio pessoa física ou a razão social e/ou nome empresarial da pessoa jurídica e/ou nome do sócio/razão social do sócio estrangeiro" 
+      - name: documento_do_socio
+        description: "CPF ou CNPJ do sócio (sócio estrangeiro não tem esta informação)." 
+      - name: codigo_qualificacao_do_socio
+        description: "Código da Qualificação do Sócio" 
+      - name: data_de_entrada_sociedade
+        description: "Data de Entrada na Sociedade" 
+      - name: codigo_pais
+        description: "Código do País do Sócio Estrangeiro" 
+      - name: documento_representante_legal
+        description: "Número do CPF do Representante Legal" 
+      - name: nome_do_representante
+        description: "Nome do Representante Legal" 
+      - name: codigo_qualificacao_do_representante_legal
+        description: "Código da Qualificação do Representante Legal" 
+      - name: faixa_etaria
+        description: "Código correspondente à faixa etária do sócio" 
+      - name: descricao_faixa_etaria
+        description: "Faixa etária do sócio"
+    
+  - name: ods_municipios
+    description: "Tabela de mapeamento com os nomes dos Municípios e seus respecitvos códigos"
+    columns:
+      - name: codigo
+        description: "Código do Município. The primary key for this table"
+        tests:
+          - unique
+          - not_null
+      - name: descricao
+        description: "Descrição do Município"
+        tests:
+          - not_null
+
+  - name: ods_naturezas
+    description: "Tabela de mapeamento com os nomes das Naturezas Jurídicas e seus respecitvos códigos"
+    columns:
+      - name: codigo
+        description: "Código da Natureza Jurídica. The primary key for this table"
+        tests:
+          - unique
+          - not_null
+      - name: descricao
+        description: "Descrição da Natureza Jurídica"
+        tests:
+          - unique
+          - not_null
+
+  - name: ods_qualificacoes
+    description: "Tabela de mapeamento com os nomes das Qualificações dos Sócios e seus respecitvos códigos"
+    columns:
+      - name: codigo
+        description: "Código da Qualificação. The primary key for this table"
+        tests:
+          - unique
+          - not_null
+      - name: descricao
+        description: "Descrição da Qualificação"
+        tests:
+          - unique
+          - not_null
+
+  - name: ods_cnaes
+    description: "Tabela de mapeamento com os nomes dos CNAES e seus respecitvos códigos"
+    columns:
+      - name: codigo
+        description: "Código do CNAE. The primary key for this table"
+        tests:
+          - unique
+          - not_null
+      - name: descricao
+        description: "Descrição do CNAE"
+        tests:
+          - not_null
+
+  - name: ods_motivos
+    description: "Tabela de mapeamento com os Motivos e seus respecitvos códigos"
+    columns:
+      - name: codigo
+        description: "Código do Motivo. The primary key for this table"
+        tests:
+          - unique
+          - not_null
+      - name: descricao
+        description: "Descrição do Motivo"
+        tests:
+          - not_null
+
+  - name: ft_cnaes_secundarias_as_list
+    description: >
+      "View que contém os códigos CNAE secundários e suas respectivas descrições como uma lista por CNPJ"
+    columns:
+      - name: cnpj_id
+        description: "CNPJ completo do estabelecimento"
+        tests:
+          - not_null
+      - name: cnae_fiscal_secundaria
+        description: "código CNAE secundário"
+        tests:
+          - not_null
+      - name: descricao_cnae_secundaria
+        description: "descrição CNAE secundário"
+        tests:
+          - not_null
+
+  - name: ft_socios
+    description: >
+      "View que contém as informações dos sócios e suas qualificações"
+    columns:
+      - name: cnpj_basico
+        description: "Número base de inscrição no CNPJ (8 primeiros dígitos do CNPJ)"
+        tests:
+          - not_null
+      - name: descricao_identificador_de_socio
+        description: "Descrição identificador do sócio"
+      - name: nome_do_socio
+        description: "Nome do sócio"
+      - name: descricao_qualificacao_do_socio
+        description: "Descrição qualificação do Sócio"
+      - name: data_de_entrada_sociedade
+        description: "Data de Entrada na Sociedade"
+      - name: descricao_faixa_etaria
+        description: "Descrição da Faixa etária"
+
+  - name: ft_comprovante_de_inscricao_e_situacao_cadastral
+    description: "Tabela que contém as informações do Comprovante de Inscrição e de Situação Cadastral"
+    columns:
+      - name: id_cnpj
+        description: "CNPJ completo to Estabelecimento. The primary key for this table"
+        tests:
+          - unique
+          - not_null
+      - name: descricao_matriz_filial
+        description: "Define se o estabelecimento é Matriz ou Filial `ods_estabelecimentos`"
+      - name: data_de_inicio_atividade
+        description: "Data de abertura do estabelecimento `ods_estabelecimentos`"
+      - name: razao_social_nome_empresarial
+        description: "Razão Social da Empresa `ods_empresas`"
+      - name: nome_fantasia
+        description: "Nome Fantasia do estabelecimento `ods_estabelecimentos`"
+      - name: descricao_porte_da_empresa
+        description: "Descrição do Porte da Empresa `ods_empresas`"
+      - name: cnae_fiscal_principal
+        description: "Código do CNAE principal `ods_estabelecimentos`"
+      - name: descricao_cnae_fiscal_principal
+        description: "Descrição do CNAE principal `ods_cnaes`"
+      - name: natureza_juridica
+        description: "Código da Natureza Jurídica da Empresa `ods_empresas`"
+      - name: descricao_natureza_juridica
+        description: "Descrição da Natureza Jurídica da Empresa `ods_naturezas`"
+      - name: logradouro
+        description: "Logradouro do Estabelecimento `ods_estabelecimentos`"
+      - name: numero
+        description: "Número do Estabelecimento `ods_estabelecimentos`"
+      - name: complemento
+        description: "Complemento do Estabelecimento `ods_estabelecimentos`"
+      - name: cep
+        description: "CEP do Estabelecimento `ods_estabelecimentos`"
+      - name: bairro
+        description: "Bairro do Estabelecimento `ods_estabelecimentos`"
+      - name: municipio
+        description: "Nome do município do Estabelecimento `ods_municipios`"
+      - name: uf
+        description: "UF do Estabelecimento `ods_estabelecimentos`"
+      - name: correio_eletronico
+        description: "Email do Estabelecimento `ods_estabelecimentos`"
+      - name: telefone
+        description: "Telefone do Estabelecimento `ods_estabelecimentos`"
+      - name: ente_federativo_responsavel
+        description: "Ente Federativo responsável `ods_empresas`"
+      - name: descricao_situacao_cadastral
+        description: "Descrição da Situação cadastral `ods_estabelecimentos`"
+      - name: data_situacao_cadastral
+        description: "Data da Situação cadastral `ods_estabelecimentos`"
+      - name: motivo_situacao_cadastral
+        description: "Motivo da Situação cadastral `ods_estabelecimentos`"
+      - name: situacao_especial
+        description: "Situação Especial `ods_estabelecimentos`"
+      - name: data_da_situacao_especial
+        description: "Data da Situação Especial `ods_estabelecimentos`"

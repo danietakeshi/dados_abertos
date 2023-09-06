@@ -1,0 +1,62 @@
+version: 2
+
+macros:
+  - name: get_situacao_cadastral
+    description: >
+      Essa macro recebe o código da situação cadastral e retorna a sua descrição
+    arguments:
+      - name: situacao_cadastral
+        type: int
+        description: > 
+          situacao_cadastral value.
+          Must be one of the accepted values, otherwise the macro will return null
+
+  - name: get_matriz_filial
+    description: >
+      Essa macro recebe o identificador de matriz/filial e retorna a descrição
+    arguments:
+      - name: identificador_matriz_filial
+        type: int
+        description: > 
+          identificador_matriz_filial value.
+          Must be one of the accepted values, otherwise the macro will return null
+
+  - name: get_porte_empresa
+    description: >
+      Essa macro recebe o identificador do porte da empresa e retorna a descrição
+    arguments:
+      - name: porte_da_empresa
+        type: int
+        description: > 
+          porte_da_empresa value.
+          Must be one of the accepted values, otherwise the macro will return null
+
+  - name: get_opcao_simples
+    description: >
+      Essa macro recebe o identificador do Simples / MEI da empresa e retorna a descrição
+    arguments:
+      - name: opcao
+        type: str
+        description: > 
+          opcao value.
+          Must be one of the accepted values, otherwise the macro will return null
+
+  - name: get_identificador_socio
+    description: >
+      Essa macro recebe o identificador do Sócio e retorna a descrição
+    arguments:
+      - name: identificador_de_socio
+        type: int
+        description: > 
+          identificador_de_socio value.
+          Must be one of the accepted values, otherwise the macro will return null
+
+  - name: get_faixa_etaria
+    description: >
+      Essa macro recebe o identificador da faixa etária e retorna a descrição
+    arguments:
+      - name: faixa_etaria
+        type: int
+        description: > 
+          faixa_etaria value.
+          Must be one of the accepted values, otherwise the macro will return null

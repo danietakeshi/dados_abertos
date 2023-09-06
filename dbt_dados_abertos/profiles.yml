@@ -1,0 +1,8 @@
+dbt_dados_abertos:
+  target: dev
+  outputs:
+    dev:
+      type: duckdb
+      path: '../database/dados_abertos.duckdb'
+      extensions:
+        - httpfs

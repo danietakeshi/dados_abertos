@@ -1,0 +1,12 @@
+*.zip
+*.parquet
+cep
+*.geojson
+logs
+cep
+*.duckdb
+get_coordinates.py
+generate_cep_agregation.py
+get_setor_censitario.py
+.env
+venv
