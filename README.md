@@ -7,7 +7,9 @@ Este repositório tem como objetivo demonstrar como é possível utilizar os dad
 Para rodar todos os scripts as seguintes dependências são necessárias:
 1. Python 3.x com as dependências listadas no arquivo requirements.txt;
 2. dbt;
-3. dbt-duckdb;
+3. pastas com o nome 'raw_files', 'parquet_files' e 'database' na raiz do diretório 'dados_abertos';
+
+Nos computadores Windows basta rodar o arquivo 'download_data.bat', que irá criar os diretórios, efetuar o download e transformação dos dados e criação da base de dados.
 
 ## Documentação do Script Python para Download e Conversão de Dados Abertos
 
