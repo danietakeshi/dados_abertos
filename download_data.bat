@@ -1,15 +1,22 @@
 if exist raw_files\ (
-  echo "Folder exists"
+  echo "Folder raw_files exists"
 ) else (
   echo "Creating Folder raw_files..."
   mkdir raw_files
 )
 
 if exist parquet_files\ (
-  echo "Folder exists"
+  echo "Folder parquet_files exists"
 ) else (
   echo "Creating Folder parquet_files...
   mkdir parquet_files
+)
+
+if exist database\ (
+  echo "Folder database exists"
+) else (
+  echo "Creating Folder database...
+  mkdir database
 )
 
 cd python
