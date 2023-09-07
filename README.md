@@ -6,10 +6,46 @@ Este repositório tem como objetivo demonstrar como é possível utilizar os dad
 
 Para rodar todos os scripts as seguintes dependências são necessárias:
 1. Python 3.x com as dependências listadas no arquivo requirements.txt;
+ˋˋˋbash
+pip install -r requirements.txt
+ˋˋˋ
 2. dbt;
 3. pastas com o nome 'raw_files', 'parquet_files' e 'database' na raiz do diretório 'dados_abertos';
 
 Nos computadores Windows basta rodar o arquivo 'download_data.bat', que irá criar os diretórios, efetuar o download e transformação dos dados e criação da base de dados.
+
+## Documentação do Script `download_data.bat`
+
+Este script em lote (batch) tem como objetivo configurar a estrutura de diretórios necessária e executar o processo de Extração, Transformação e Carregamento (ETL) de dados a partir de arquivos brutos para um banco de dados DuckDB. O script é projetado para uso em ambientes Windows.
+
+### Estrutura de Diretórios
+
+O script verifica a existência de três diretórios principais e, se eles não existirem, os cria. Esses diretórios são:
+
+1. `raw_files`: Este diretório é usado para armazenar arquivos brutos que serão processados durante o ETL.
+
+2. `parquet_files`: Este diretório é usado para armazenar os arquivos Parquet gerados durante o processo de ETL.
+
+3. `database`: Este diretório é usado para armazenar o banco de dados DuckDB resultante do ETL.
+
+### Execução do ETL
+
+Após criar os diretórios necessários, o script muda para o diretório `python` e executa o script Python `dados_abertos_etl.py` várias vezes, cada vez especificando uma tabela específica para extração e transformação. As tabelas processadas incluem:
+
+- Qualificações
+- Cnaes
+- Naturezas
+- Municípios
+- Países
+- Motivos
+- Empresas
+- Simples
+- Sócios
+- Estabelecimentos
+
+Cada execução do `dados_abertos_etl.py` extrai os dados brutos correspondentes, executa transformações específicas para a tabela e, em seguida, carrega os dados transformados em arquivos Parquet no diretório `parquet_files`.
+
+Após a conclusão do ETL, o script muda para o diretório `dbt_dados_abertos` e executa o comando `dbt run` para processar e modelar os dados usando o DBT (Data Build Tool). O parâmetro `--vars "is_test_run: false"` é passado para indicar que esta não é uma execução de teste.
 
 ## Documentação do Script Python para Download e Conversão de Dados Abertos
 
