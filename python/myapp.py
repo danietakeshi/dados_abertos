@@ -24,20 +24,14 @@ def pesquisar_cnpj(cnpj):
 
 # Função para pesquisar CNAEs Secundárias
 def pesquisar_cnaes(cnpj):
-    query = f"SELECT * FROM dados_abertos.main.vw_cnaes_secundarias_as_list WHERE id_cnpj = '{cnpj}'"
+    query = f"SELECT * FROM dados_abertos.main.ft_cnaes_secundarias_as_list WHERE id_cnpj = '{cnpj}'"
     result = conn.execute(query).df()
-
-    if result.empty:
-        return None
     return result
 
 # Função para pesquisar Sócios
 def pesquisar_socios(cnpj):
-    query = f"SELECT * FROM dados_abertos.main.vw_socios WHERE cnpj_basico = '{cnpj[:8]}'"
+    query = f"SELECT * FROM dados_abertos.main.ft_socios WHERE cnpj_basico = '{cnpj[:8]}'"
     result = conn.execute(query).df()
-
-    if result.empty:
-        return None
     return result
 
 def formatar_cnpj(cnpj):

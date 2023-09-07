@@ -4,3 +4,4 @@ duckdb
 dbt-duckdb
 streamlit
 streamlit-lottie
+tqdm
