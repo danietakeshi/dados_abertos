@@ -5,3 +5,7 @@ dbt-duckdb
 streamlit
 streamlit-lottie
 tqdm
+numpy
+pyarrow
+fastparquet
+argparse
